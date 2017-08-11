@@ -1,6 +1,6 @@
 [package]
 name = "dcel"
 version = "0.1.0"
-authors = ["alex"]
+authors = ["Implox"]
 
 [dependencies]
