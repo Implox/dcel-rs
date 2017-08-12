@@ -1,8 +1,4 @@
-mod geometry; 
+//! Crate for working with Doubly Linked Edge Lists (DCELs)
 
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-    }
-}
+mod geometry; 
+pub mod api;

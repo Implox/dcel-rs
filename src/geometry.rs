@@ -35,6 +35,25 @@ impl Point2 {
     }
 }
 
+// for easy conversion between all possible tuples
+impl<T: Into<f64> + Copy> From<(T,T)> for Point2 {
+    fn from(coordinate: (T,T)) -> Point2 {
+        Point2 {
+            x: coordinate.0.into(),
+            y: coordinate.1.into()
+        }
+    }
+}
+impl<'a, T: Into<f64> + Copy> From<&'a (T,T)> for Point2 {
+    fn from(coordinate: &'a (T,T)) -> Point2 {
+        Point2 {
+            x: coordinate.0.into(),
+            y: coordinate.1.into()
+        }
+    }
+}
+
+
 #[derive(Debug, PartialEq, Copy, Clone)]
 pub struct Circle {
     pub center: Point2,

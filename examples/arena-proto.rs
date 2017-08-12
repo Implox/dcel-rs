@@ -81,7 +81,7 @@ fn main() {
     let foo = Foo { 
         data: 69, // nice
         valid: true,
-    }
+    };
 
     let idx = arena.add(foo);
     println!("{:?}", arena);
