@@ -47,5 +47,5 @@ pub fn edge_split() {
 }
 
 pub fn main() {
-    //edge_split();
+    edge_split();
 }
