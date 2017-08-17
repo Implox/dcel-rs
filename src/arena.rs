@@ -96,7 +96,14 @@ where T: Deleteable,
     type Output = T;
 
     fn index(&self, node: Idx) -> &T {
-        &self.data[node.into()]
+        let value = &self.data[node.into()];
+
+        // Hacky code
+        if value.is_deleted() {
+            panic!("Value has been deleted!");
+        }
+
+        return value;
     }
 }
 
@@ -104,6 +111,13 @@ impl<T, Idx> IndexMut<Idx> for Arena<T, Idx>
 where T: Deleteable,
       Idx: ArenaId {
     fn index_mut(&mut self, node: Idx) -> &mut T {
-        &mut self.data[node.into()]
+        let value = &mut self.data[node.into()];
+
+        // More hacky code
+        if value.is_deleted() {
+            panic!("Value has been deleted!");
+        }
+
+        return value;
     }
 }

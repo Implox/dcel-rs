@@ -61,7 +61,7 @@ pub struct Circle {
 }
 
 /// Returns the midpoint of two points along the line between them.
-pub fn midpoint(a: &Point2, b: &Point2) -> Point2 {
+pub fn midpoint(a: Point2, b: Point2) -> Point2 {
     return Point2 { 
         x: 0.5 * (a.x + b.x), 
         y: 0.5 * (a.y + b.y) 

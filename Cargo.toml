@@ -3,4 +3,12 @@ name = "dcel"
 version = "0.1.0"
 authors = ["Implox", "Ferris"]
 
+[lib]
+name = "libdcel"
+path = "src/lib.rs"
+
+[[bin]]
+name = "bin"
+path = "src/bin.rs"
+
 [dependencies]
