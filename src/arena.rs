@@ -5,7 +5,11 @@ use std::convert::From;
 /// the usize type. Used for ensuring that IDs for one type of
 /// arena cannot be used inside one of another type.
 pub trait ArenaId: Copy + From<usize> + Into<usize> {}
-impl<T> ArenaId for T where T: Copy + From<usize> + Into<usize> {}
+impl<T> ArenaId for T
+where
+    T: Copy + From<usize> + Into<usize>,
+{
+}
 
 /// Given a type name (preferably in the form `FooId` where Foo is
 /// a type stored in an arena), generates a wrapper around usize
@@ -54,21 +58,29 @@ macro_rules! make_deleteable {
 }
 
 #[derive(Debug)]
-pub struct Arena<T, Idx> 
-where T: Deleteable, Idx: ArenaId {
+pub struct Arena<T, Idx>
+where
+    T: Deleteable,
+    Idx: ArenaId,
+{
     data: Vec<T>,
     idx_reuse_stack: Vec<Idx>,
 }
 
-impl<T, Idx> Arena<T, Idx> 
-where T: Deleteable,
-      Idx: ArenaId {
+impl<T, Idx> Arena<T, Idx>
+where
+    T: Deleteable,
+    Idx: ArenaId,
+{
     pub fn new() -> Arena<T, Idx> {
         let data = Vec::new();
         let idx_stack = Vec::new();
-        Arena { data: data, idx_reuse_stack: idx_stack }
+        Arena {
+            data: data,
+            idx_reuse_stack: idx_stack,
+        }
     }
-    
+
     pub fn add(&mut self, item: T) -> Idx {
         let idx: Idx;
         if self.idx_reuse_stack.is_empty() {
@@ -80,7 +92,7 @@ where T: Deleteable,
         }
         return idx;
     }
-    
+
     pub fn remove(&mut self, idx: Idx) {
         let index: usize = idx.into();
         if index < self.data.len() && self.data[index].is_deleted() {
@@ -90,9 +102,11 @@ where T: Deleteable,
     }
 }
 
-impl<T, Idx> Index<Idx> for Arena<T, Idx> 
-where T: Deleteable,
-      Idx: ArenaId {
+impl<T, Idx> Index<Idx> for Arena<T, Idx>
+where
+    T: Deleteable,
+    Idx: ArenaId,
+{
     type Output = T;
 
     fn index(&self, node: Idx) -> &T {
@@ -108,8 +122,10 @@ where T: Deleteable,
 }
 
 impl<T, Idx> IndexMut<Idx> for Arena<T, Idx>
-where T: Deleteable,
-      Idx: ArenaId {
+where
+    T: Deleteable,
+    Idx: ArenaId,
+{
     fn index_mut(&mut self, node: Idx) -> &mut T {
         let value = &mut self.data[node.into()];
 

@@ -21,34 +21,31 @@ impl PartialOrd for Point2 {
 impl Point2 {
     /// Returns a new Point2 instance.
     pub fn new(x: f64, y: f64) -> Point2 {
-        return Point2 {
-            x: x,
-            y: y,
-        };
+        return Point2 { x: x, y: y };
     }
-    
+
     /// Returns the squared Euclidean distance between this point and another.
     pub fn dist_sq(&self, other: &Point2) -> f64 {
         let dx = other.x - self.x;
         let dy = other.y - self.y;
-        return dx*dx + dy*dy;
+        return dx * dx + dy * dy;
     }
 }
 
 // for easy conversion between all possible tuples
-impl<T: Into<f64> + Copy> From<(T,T)> for Point2 {
-    fn from(coordinate: (T,T)) -> Point2 {
+impl<T: Into<f64> + Copy> From<(T, T)> for Point2 {
+    fn from(coordinate: (T, T)) -> Point2 {
         Point2 {
             x: coordinate.0.into(),
-            y: coordinate.1.into()
+            y: coordinate.1.into(),
         }
     }
 }
-impl<'a, T: Into<f64> + Copy> From<&'a (T,T)> for Point2 {
-    fn from(coordinate: &'a (T,T)) -> Point2 {
+impl<'a, T: Into<f64> + Copy> From<&'a (T, T)> for Point2 {
+    fn from(coordinate: &'a (T, T)) -> Point2 {
         Point2 {
             x: coordinate.0.into(),
-            y: coordinate.1.into()
+            y: coordinate.1.into(),
         }
     }
 }
@@ -62,9 +59,9 @@ pub struct Circle {
 
 /// Returns the midpoint of two points along the line between them.
 pub fn midpoint(a: Point2, b: Point2) -> Point2 {
-    return Point2 { 
-        x: 0.5 * (a.x + b.x), 
-        y: 0.5 * (a.y + b.y) 
+    return Point2 {
+        x: 0.5 * (a.x + b.x),
+        y: 0.5 * (a.y + b.y),
     };
 }
 

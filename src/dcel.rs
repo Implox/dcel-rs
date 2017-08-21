@@ -1,5 +1,5 @@
-use ::geometry::*;
-use ::arena::*;
+use geometry::*;
+use arena::*;
 
 // ArenaID types for a DCEL
 arena_id!(VertexId);
@@ -17,7 +17,11 @@ pub struct Vertex {
 make_deleteable!(Vertex);
 impl Vertex {
     pub fn new(coord: Point2) -> Vertex {
-        Vertex { coord: coord, outgoing_edge: None, deleted: false }
+        Vertex {
+            coord: coord,
+            outgoing_edge: None,
+            deleted: false,
+        }
     }
 }
 
@@ -51,13 +55,16 @@ impl HalfEdge {
 pub struct Face {
     incident_edge: Option<HalfEdgeId>,
 
-    deleted: bool
+    deleted: bool,
 }
 
 make_deleteable!(Face);
 impl Face {
     pub fn new() -> Face {
-        Face { incident_edge: None, deleted: false }
+        Face {
+            incident_edge: None,
+            deleted: false,
+        }
     }
 }
 
@@ -102,7 +109,7 @@ impl DCEL {
         // Create edge, add it to the arena
         let edge = HalfEdge::new(origin_id, face_id);
         let edge_id = self.edges.add(edge);
-        
+
         // Update the origin of the edge
         let mut origin = &mut self.vertices[origin_id];
         origin.outgoing_edge = Some(edge_id);
@@ -133,7 +140,9 @@ impl DCEL {
             cycle.push(current);
             current = self.edges[current].next.unwrap();
 
-            if current == start { break; }
+            if current == start {
+                break;
+            }
         }
 
         return cycle;
